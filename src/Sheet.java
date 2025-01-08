@@ -1,6 +1,5 @@
-public class Sheet {
-    package assignments.ex2;
-
+//public class Sheet {
+//    package assignments.ex2;
 import java.io.IOException;
 
     /**
@@ -127,5 +126,5 @@ import java.io.IOException;
          */
         public void load(String fileName) throws IOException;
     }
-}
+//}
 

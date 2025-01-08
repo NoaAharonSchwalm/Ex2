@@ -1,9 +1,9 @@
-package assignments.ex2;
+//package assignments.ex2;
 import java.io.IOException;
 // Add your documentation below:
 
 public class Ex2Sheet implements Sheet {
-    private Cell[][] table;
+    private SCell[][] table;
     // Add your code here
 
     // ///////////////////
@@ -25,7 +25,7 @@ public class Ex2Sheet implements Sheet {
         String ans = Ex2Utils.EMPTY_CELL;
         // Add your code here
 
-        Cell c = get(x,y);
+        SCell c = get(x,y);
         if(c!=null) {ans = c.toString();}
 
         /////////////////////
@@ -33,13 +33,13 @@ public class Ex2Sheet implements Sheet {
     }
 
     @Override
-    public Cell get(int x, int y) {
+    public SCell get(int x, int y) {
         return table[x][y];
     }
 
     @Override
-    public Cell get(String cords) {
-        Cell ans = null;
+    public SCell get(String cords) {
+        SCell ans = null;
         // Add your code here
 
         /////////////////////
@@ -56,7 +56,7 @@ public class Ex2Sheet implements Sheet {
     }
     @Override
     public void set(int x, int y, String s) {
-        Cell c = new SCell(s);
+        SCell c = new SCell(s);
         table[x][y] = c;
         // Add your code here
 

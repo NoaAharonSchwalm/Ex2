@@ -1,10 +1,10 @@
-public class Index2D {
-    package assignments.ex2;
+//public class Index2D {
 
     /**
      * ArielU. Intro2CS, Ex2: https://docs.google.com/document/d/1-18T-dj00apE4k1qmpXGOaqttxLn-Kwi/edit?usp=sharing&ouid=113711744349547563645&rtpof=true&sd=true
      * DO NOT CHANGE THIS INTERFACE!!
-     * This interface represents a simple 2D cell index (as in a spreadsheet),
+     * This interface represen
+     * ts a simple 2D cell index (as in a spreadsheet),
      * The index "c12" represents the cell [2][12].
      */
     public interface Index2D {
@@ -30,4 +30,4 @@ public class Index2D {
          */
         public int getY();
     }
-}
+//}
