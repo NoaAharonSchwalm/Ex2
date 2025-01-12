@@ -6,12 +6,12 @@ public class Ex2Sheet implements Sheet {
     private SCell[][] table;
     // Add your code here
 
-    // ///////////////////
+    // Constructor to initialize the table with given dimensions
     public Ex2Sheet(int x, int y) {
         table = new SCell[x][y];
         for(int i=0;i<x;i=i+1) {
             for(int j=0;j<y;j=j+1) {
-                table[i][j] = new SCell("");
+                table[i][j] = new SCell(Ex2Utils.EMPTY_CELL);
             }
         }
         eval();
@@ -25,7 +25,7 @@ public class Ex2Sheet implements Sheet {
         String ans = Ex2Utils.EMPTY_CELL;
         // Add your code here
 
-        SCell c = get(x,y);
+        Cell c = get(x,y);
         if(c!=null) {ans = c.toString();}
 
         /////////////////////
@@ -33,13 +33,13 @@ public class Ex2Sheet implements Sheet {
     }
 
     @Override
-    public SCell get(int x, int y) {
+    public Cell get(int x, int y) {
         return table[x][y];
     }
 
     @Override
-    public SCell get(String cords) {
-        SCell ans = null;
+    public Cell get(String cords) {
+        Cell ans = null;
         // Add your code here
 
         /////////////////////
@@ -56,8 +56,8 @@ public class Ex2Sheet implements Sheet {
     }
     @Override
     public void set(int x, int y, String s) {
-        SCell c = new SCell(s);
-        table[x][y] = c;
+        Cell c = new SCell(s);
+        table[x][y] = (SCell) c;
         // Add your code here
 
         /////////////////////

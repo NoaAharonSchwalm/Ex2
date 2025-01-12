@@ -2,22 +2,67 @@
 // Add your documentation below:
 
     public class CellEntry  implements Index2D {
+        private String index; // The string representation of the index, e.g., "B3"
 
-        @Override
-        public boolean isValid() {
-            return false; // to do
+        // Constructor to initialize the CellEntry with the index string
+        public CellEntry(String index) {
+            this.index = index.trim(); // Remove leading/trailing spaces for consistency
+        }
+
+        public CellEntry(int xx, int yy) {
+            //לממשששש
         }
 
         @Override
-        public int getX() {return Ex2Utils.ERR;}
+        public boolean isValid() {
+            if (index == null || index.isEmpty()) {
+                return false; // Null or empty strings are invalid
+            }
+            // Use regex to validate the format: one letter followed by one or two digits
+            return index.matches("^[A-Za-z][0-9]{1,2}$");
+        }
 
+        /**
+         * Returns the X coordinate (column number).
+         * X is represented as the position of the letter in the alphabet (A=0, B=1, ..., Z=25).
+         * If the index is invalid, returns Ex2Utils.ERR.
+         *
+         * @return the X value as an integer.
+         */
         @Override
-        public int getY() {return Ex2Utils.ERR;}
-    }
-    /**
-     *
-     * @return the cell index representation in form of a spreadsheet (e.g., "B3").
-     */
-//    public String toString() {
-//    }
+        public int getX() {
+            if (!isValid()) {
+                return Ex2Utils.ERR; // Return error constant if the index is invalid
+            }
 
+            char letter = Character.toUpperCase(index.charAt(0)); // Get the first character as uppercase
+            return letter - 'A'; // Calculate the position in the alphabet (A=0)
+        }
+
+        /**
+         * Returns the Y coordinate (row number).
+         * Y is represented as the number following the letter.
+         * If the index is invalid, returns Ex2Utils.ERR.
+         *
+         * @return the Y value as an integer.
+         */
+        @Override
+        public int getY() {
+            if (!isValid()) {
+                return Ex2Utils.ERR; // Return error constant if the index is invalid
+            }
+
+            String numberPart = index.substring(1); // Extract the part after the first character
+            return Integer.parseInt(numberPart); // Convert to integer
+        }
+
+        /**
+         * Returns the string representation of the cell index in spreadsheet format (e.g., "B3").
+         *
+         * @return the string representation of the index.
+         */
+        @Override
+        public String toString() {
+            return index; // Simply return the index as it is
+        }
+    }
