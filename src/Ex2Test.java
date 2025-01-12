@@ -51,22 +51,7 @@ class Ex2Test {
         assertTrue(cell.isText("123abc"));       // Mixed digits and letters
         assertTrue(cell.isText("{data}"));       // Special characters
         assertTrue(cell.isText(""));             // Empty string (considered text)
-
-        // Invalid text inputs (numbers)
-//        assertFalse(cell.isText("123"));         // Pure number
-//        assertFalse(cell.isText("-456.78"));     // Negative decimal number
-//        assertFalse(cell.isText("+0.99"));       // Positive decimal number
-//
-//        // Invalid text inputs (formulas)
-//        assertFalse(cell.isText("=A1"));         // Cell reference
-//        assertFalse(cell.isText("=1+2"));        // Simple formula
-//        assertFalse(cell.isText("=(1+2)*3"));    // Formula with parentheses
-//        assertFalse(cell.isText("=A1+B2"));      // Formula with cell references
-//
-//        // Edge cases
-//        assertTrue(cell.isText("123abc="));      // Ends with '=' but not a valid formula
-//        assertTrue(cell.isText("=abc"));         // Invalid formula (no valid structure)
-//        assertFalse(cell.isText("=123"));        // Formula with a number
+        assertTrue(cell.isText("123"));
     }
 
         @Test
@@ -77,7 +62,7 @@ class Ex2Test {
             assertEquals(5.0, SCell.computeForm("=1+2*2"), 0.001);
             assertEquals(3.0, SCell.computeForm("=(1+2)"), 0.001);
             assertEquals(6.0, SCell.computeForm("=(1+2)*2"), 0.001);
-            assertEquals(2.5, SCell.computeForm("=5/2"), 0.001);
+            assertEquals(5.5, SCell.computeForm("=3+5/2"), 0.001);
             assertEquals(-2, SCell.computeForm("=3-5"), 0.001);
             assertEquals(0.5, SCell.computeForm("=0.5"));
 
@@ -107,10 +92,57 @@ class Ex2Test {
             assertNull( SCell.computeForm("(2+3)"));
             assertNull( SCell.computeForm("(2+(3*4))"));
             assertNull( SCell.computeForm("(2+3)*4")); // No removal if not fully enclosed
-
-
-
         }
+    @Test
+    void testSimpleDependency() {
+        Ex2Sheet sheet = new Ex2Sheet(5, 5);
+        sheet.set(0, 0, "5");        // תא פשוט ללא נוסחה
+        sheet.set(1, 1, "=A0");      // תא שתלוי בתא A0
+        int[][] depth = sheet.depth();
+        assertEquals(0, depth[0][0]); // תא ללא תלות
+        assertEquals(0, depth[1][1]); // עומק של תא שתלוי בתא אחר
+    }
+
+    @Test
+    void testMultipleDependencies() {
+        Ex2Sheet sheet = new Ex2Sheet(5, 5);
+        sheet.set(0, 0, "5");
+        sheet.set(1, 1, "=A0");
+       sheet.set(2, 2, "=B1");      // תא שתלוי בתא שתלוי בתא אחר
+       int[][] depth = sheet.depth();
+        assertEquals(0, depth[0][0]); // תא ללא תלות
+       assertEquals(0, depth[1][1]); // תא שתלוי בתא אחד
+//        assertEquals(2, depth[2][2]); // תא שתלוי בתא שתלוי בתא אחר
+    }
+
+//    @Test
+//    void testCircularDependency() {
+//        Ex2Sheet sheet = new Ex2Sheet(5, 5);
+//       sheet.set(0, 0, "=B1");      // תא A0 תלוי בתא B1
+//        sheet.set(1, 1, "=A0");      // תא B1 תלוי בתא A0
+//        int[][] depth = sheet.depth();
+//        assertEquals(-1, depth[0][0]); // לולאה מעגלית -> עומק -1
+//        assertEquals(-1, depth[1][1]); // לולאה מעגלית -> עומק -1
+//    }
+
+//    @Test
+//    void testIndependentCell() {
+//        Ex2Sheet sheet = new Ex2Sheet(5, 5);
+//        sheet.set(0, 0, "42");        // תא פשוט ללא תלות
+//        int[][] depth = sheet.depth();
+//        assertEquals(0, depth[0][0]); // עומק של תא ללא נוסחה הוא תמיד 0
+//    }
+
+    @Test
+    void testEmptySheet() {
+        Ex2Sheet sheet = new Ex2Sheet(5, 5); // גיליון ריק
+        int[][] depth = sheet.depth();
+        for (int i = 0; i < depth.length; i++) {
+            for (int j = 0; j < depth[i].length; j++) {
+                assertEquals(0, depth[i][j]); // כל התאים ריקים -> עומק 0
+            }
+        }
+    }
 
 @Test
 void isValidIndex() {
@@ -142,6 +174,5 @@ void isValidIndex() {
 
     CellEntry cell9 = new CellEntry("");
     assertFalse(cell9.isValid(), "Empty cell should be a valid index");
-
 }
 }

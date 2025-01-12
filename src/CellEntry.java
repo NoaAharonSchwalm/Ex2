@@ -10,7 +10,15 @@
         }
 
         public CellEntry(int xx, int yy) {
-            //לממשששש
+            // Verify that the values of xx and yy are within valid ranges
+            if (xx < 0 || xx > 25 || yy < 1 || yy > 99) {
+                throw new IllegalArgumentException("Invalid coordinates");
+            }
+
+            // Convert the column number (xx) to a letter (A=0, B=1, ..., Z=25)
+            char letter = (char) ('A' + xx);
+            // Format the index as a string (e.g., "B3" for xx=1, yy=3)
+            this.index = letter + Integer.toString(yy);
         }
 
         @Override

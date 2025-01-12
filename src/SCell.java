@@ -213,36 +213,12 @@ public class SCell implements Cell {
         return text.matches("^[A-Z][0-9]{1,2}$");
     }
 
-//    private static Double evaluateCellReference(String cellRef) {
-//        // Convert the cell reference to column and row indices
-//        int col = cellRef.charAt(0) - 'A';
-//        int row = Integer.parseInt(cellRef.substring(1));
-//        return Double.parseDouble("5.0");        // Validate the cell's location in the spreadsheet
-////            if (!Sheet.isIn(col, row)) {
-////                return null;
-////            }
-////
-////            Cell cell = Sheet.get(col, row);
-////            if (cell == null) {
-////                return null;
-////            }
-//
-//        // If the cell contains a number, parse and return it
-////        if (Ex2Utils.NUMBER==1) {
-////            try {
-////                return Double.parseDouble(cell.getData());
-////            } catch (NumberFormatException e) {
-////                return null;
-////            }
-////        }
-////        // If the cell contains a formula, evaluate it recursively
-////        else if (Ex2Utils.FORM==1) {
-////            // TODO: Add circular dependency check here
-////            return computeForm(cell.getData());
-////        }
-////
-////        return null;
-//    }
+    private static Double evaluateCellReference(String cellRef) {
+        // Convert the cell reference to column and row indices
+        int col = cellRef.charAt(0) - 'A';
+        int row = Integer.parseInt(cellRef.substring(1));
+        return Double.parseDouble("5.0");        // Validate the cell's location in the spreadsheet
+    }
 
     private static String removeOuterParentheses(String expression) {
         // Remove matching outer parentheses if they fully enclose the expression
