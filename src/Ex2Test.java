@@ -96,11 +96,11 @@ class Ex2Test {
     @Test
     void testSimpleDependency() {
         Ex2Sheet sheet = new Ex2Sheet(5, 5);
-        sheet.set(0, 0, "5");        // תא פשוט ללא נוסחה
-        sheet.set(1, 1, "=A0");      // תא שתלוי בתא A0
+        sheet.set(0, 0, "5");        // Simple cell without formula
+        sheet.set(1, 1, "=A0");      // Cell dependent on cell A0
         int[][] depth = sheet.depth();
-        assertEquals(0, depth[0][0]); // תא ללא תלות
-        assertEquals(0, depth[1][1]); // עומק של תא שתלוי בתא אחר
+        assertEquals(0, depth[0][0]); // Cell with no dependencies
+        assertEquals(0, depth[1][1]); // Depth of a cell dependent on another cell
     }
 
     @Test
@@ -108,38 +108,38 @@ class Ex2Test {
         Ex2Sheet sheet = new Ex2Sheet(5, 5);
         sheet.set(0, 0, "5");
         sheet.set(1, 1, "=A0");
-       sheet.set(2, 2, "=B1");      // תא שתלוי בתא שתלוי בתא אחר
+       sheet.set(2, 2, "=B1");      // Cell dependent on a cell that depends on another cell
        int[][] depth = sheet.depth();
-        assertEquals(0, depth[0][0]); // תא ללא תלות
-       assertEquals(0, depth[1][1]); // תא שתלוי בתא אחד
-//        assertEquals(2, depth[2][2]); // תא שתלוי בתא שתלוי בתא אחר
+        assertEquals(0, depth[0][0]); // Cell with no dependencies
+       assertEquals(0, depth[1][1]); // Cell dependent on one cell
+//        assertEquals(2, depth[2][2]); // Cell dependent on a cell that depends on another cell
     }
 
 //    @Test
 //    void testCircularDependency() {
 //        Ex2Sheet sheet = new Ex2Sheet(5, 5);
-//       sheet.set(0, 0, "=B1");      // תא A0 תלוי בתא B1
-//        sheet.set(1, 1, "=A0");      // תא B1 תלוי בתא A0
+//       sheet.set(0, 0, "=B1");      // Cell A0 depends on cell B1
+//        sheet.set(1, 1, "=A0");      // Cell B1 depends on cell A0
 //        int[][] depth = sheet.depth();
-//        assertEquals(-1, depth[0][0]); // לולאה מעגלית -> עומק -1
-//        assertEquals(-1, depth[1][1]); // לולאה מעגלית -> עומק -1
+//        assertEquals(-1, depth[0][0]); // Circular loop -> depth -1
+//        assertEquals(-1, depth[1][1]); //  Circular loop -> depth -1
 //    }
 
 //    @Test
 //    void testIndependentCell() {
 //        Ex2Sheet sheet = new Ex2Sheet(5, 5);
-//        sheet.set(0, 0, "42");        // תא פשוט ללא תלות
+//        sheet.set(0, 0, "42");        //  Simple cell with no dependency
 //        int[][] depth = sheet.depth();
-//        assertEquals(0, depth[0][0]); // עומק של תא ללא נוסחה הוא תמיד 0
+//        assertEquals(0, depth[0][0]); // The depth of a cell without a formula is always 0
 //    }
 
     @Test
     void testEmptySheet() {
-        Ex2Sheet sheet = new Ex2Sheet(5, 5); // גיליון ריק
+        Ex2Sheet sheet = new Ex2Sheet(5, 5); //  Empty sheet
         int[][] depth = sheet.depth();
         for (int i = 0; i < depth.length; i++) {
             for (int j = 0; j < depth[i].length; j++) {
-                assertEquals(0, depth[i][j]); // כל התאים ריקים -> עומק 0
+                assertEquals(0, depth[i][j]); //  All cells are empty -> depth is 0
             }
         }
     }
