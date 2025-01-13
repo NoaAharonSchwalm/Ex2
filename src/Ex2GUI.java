@@ -132,7 +132,7 @@ public class Ex2GUI {
                 String c = StdDrawEx2.getCell(cord,cc.getData());
                 String s1 = table.get(xx,yy).getData();
                 if(c==null) {
-                    table.set(xx,yy,s1);
+//                    table.set(xx,yy,s1);
                 }
                 else {
                     table.set(xx, yy, c);

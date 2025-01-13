@@ -164,8 +164,8 @@ public class Ex2Sheet implements Sheet {
                 i = j - 1;
             }
         }
-        inProgress[x][y] = false; // הסרת הסימון של התא בתהליך
-        ans[x][y] = maxDepth + 1; // העומק הוא מקסימום העומק של התאים המאוזכרים + 1
+        inProgress[x][y] = false;
+        ans[x][y] = maxDepth + 1;
         return ans[x][y];
     }
 

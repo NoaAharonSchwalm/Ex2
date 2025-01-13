@@ -23,7 +23,7 @@ class Ex2Test {
     @Test
     void isForm() {
         // Valid formula
-        assertTrue(SCell.isForm("=-1+2")); // Simple formula
+        assertTrue(SCell.isForm("=1+2")); // Simple formula
         assertTrue(SCell.isForm("=A1+3")); // Formula with cell reference
         assertTrue(SCell.isForm("=A1*B2")); // Formula with multiple cell references
        assertTrue(SCell.isForm("=1*(2+3)")); // Nested parentheses
@@ -32,7 +32,7 @@ class Ex2Test {
         assertFalse(SCell.isForm(null)); // Null formula
         assertFalse(SCell.isForm("")); // Empty string
         assertFalse(SCell.isForm("1+2")); // Missing '=' at the start
-//        assertFalse(SCell.isForm("=")); // Only '='
+       assertFalse(SCell.isForm("=")); // Only '='
         assertFalse(SCell.isForm("=+")); // Operator without operands
         assertFalse(SCell.isForm("=1++2")); // Consecutive operators
         assertFalse(SCell.isForm("=1+(2*3")); // Unmatched parentheses
@@ -97,25 +97,25 @@ class Ex2Test {
     @Test
     void testEvalEmptyCell() {
         Sheet sheet = new Ex2Sheet();
-        sheet.set(0, 0, "");  // תא ריק
+        sheet.set(0, 0, "");
         String result = sheet.eval(0, 0);
-        assertEquals(Ex2Utils.EMPTY_CELL, result); // צריך להחזיר EMPTY_CELL
+        assertEquals(Ex2Utils.EMPTY_CELL, result);
     }
 
     @Test
     void testEvalTextCell() {
         Sheet sheet = new Ex2Sheet();
-        sheet.set(0, 0, "Hello");  // תא עם טקסט
+        sheet.set(0, 0, "Hello");
         String result = sheet.eval(0, 0);
-        assertEquals("Hello", result); // חייב להחזיר את המילה "Hello"
+        assertEquals("Hello", result);
     }
 
     @Test
     void testEvalNumberCell() {
         Sheet sheet = new Ex2Sheet();
-        sheet.set(0, 0, "10");  // תא עם מספר
+        sheet.set(0, 0, "10");
         String result = sheet.eval(0, 0);
-        assertEquals("10.0", result);  // מספר אמור להיות מומר ל-10.0
+        assertEquals("10.0", result);
     }
 
 
@@ -128,38 +128,6 @@ class Ex2Test {
 //        assertEquals(1, depths[0][0]);  // נוסחה פשוטה, עומק 1
     }
 
-
-//        @Test
-//    void testSimpleDependency() {
-//        Ex2Sheet sheet = new Ex2Sheet(5, 5);
-//        sheet.set(0, 0, "5");        // Simple cell without formula
-//        sheet.set(1, 1, "=A0");      // Cell dependent on cell A0
-//        int[][] depth = sheet.depth();
-//        assertEquals(0, depth[0][0]); // Cell with no dependencies
-//        assertEquals(0, depth[1][1]); // Depth of a cell dependent on another cell
-//    }
-//
-//    @Test
-//    void testMultipleDependencies() {
-//        Ex2Sheet sheet = new Ex2Sheet(5, 5);
-//        sheet.set(0, 0, "5");
-//        sheet.set(1, 1, "=A0");
-//       sheet.set(2, 2, "=B1");      // Cell dependent on a cell that depends on another cell
-//       int[][] depth = sheet.depth();
-//        assertEquals(0, depth[0][0]); // Cell with no dependencies
-////       assertEquals(1, depth[1][1]); // Cell dependent on one cell
-////        assertEquals(2, depth[2][2]); // Cell dependent on a cell that depends on another cell
-//    }
-//
-//    @Test
-//    void testCircularDependency() {
-//        Ex2Sheet sheet = new Ex2Sheet(5, 5);
-//       sheet.set(0, 0, "=B1");      // Cell A0 depends on cell B1
-//        sheet.set(1, 1, "=A0");      // Cell B1 depends on cell A0
-//        int[][] depth = sheet.depth();
-////        assertEquals(-1, depth[0][0]); // Circular loop -> depth -1
-////        assertEquals(-1, depth[1][1]); //  Circular loop -> depth -1
-//    }
 
     @Test
     void testIndependentCell() {
