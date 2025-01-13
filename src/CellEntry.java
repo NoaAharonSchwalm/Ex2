@@ -12,7 +12,7 @@ public class CellEntry  implements Index2D {
     // Constructor that initializes a CellEntry using x (column) and y (row) coordinates
     public CellEntry(int xx, int yy) {
         // Verify that the values of xx and yy are within valid ranges
-        if (xx < 0 || xx > 25 || yy < 1 || yy > 99) {
+        if (xx < 0 || xx > 26 || yy < 0 || yy > 99) {
             throw new IllegalArgumentException("Invalid coordinates"); // Throw an error if coordinates are out of range
         }
 
